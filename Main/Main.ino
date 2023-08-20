@@ -9,6 +9,7 @@
 #include "record.h"
 #include "display.h"
 #include "brigthness.h"
+#include "temperature_humidity.h"
 
 
 #define GPS_TX_PIN 2
@@ -19,7 +20,6 @@ TinyGPSPlus gps;
 
 double *get_gps(){
    // Objeto para parsear los datos GPS
-  
     while(gpsSerial.available()) {
       char c = gpsSerial.read();
     // Alimentar los caracteres al objeto TinyGPS
@@ -43,16 +43,18 @@ void setup() {
   gpsSerial.begin(9600);
   Serial.begin(9600); // Iniciar comunicación serie para monitoreo
   void start_lux();
+  void start_dht();
 }
 
 void loop() {
-    // Mostrar los valores de latitud y longitud
+    //----Llamado de las funciones----
     double * array = get_gps();
     uint16_t luminosidad= lux();
+    float * sensor_dht= temp_hum();
     if( array) {
       Serial.println("TRUE");     
       start_Display("Guardando datos");
-      write_record(array[0],array[1],luminosidad);
+      write_record(array[0],array[1],luminosidad,sensor_dht[0],sensor_dht[1],sensor_dht[2],sensor_dht[3]);
       delay(1000);
     } else{
       start_Display("No se guardaron datos");

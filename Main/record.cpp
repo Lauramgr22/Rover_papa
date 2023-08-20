@@ -46,8 +46,14 @@ String uint16ToString(uint16_t value) {
   
   return String(buffer);
 }
+//------------------------------------------------------------------------------
+String floatToString(float number, int decimalPlaces){
+  char buffer[20]; // Suficientemente grande para contener el número como cadena
+  dtostrf(number, 0, decimalPlaces, buffer); // Convierte el float a una cadena con el número deseado de decimales
+  return String(buffer); // Convierte el buffer en un objeto String
+}
 //--------------------------------------------------------------------------------
-void write_record(double latitud, double longitud,uint16_t lum){
-  writeSD(doubleToString(latitud, 8) + "," + doubleToString(longitud, 8)+","+uint16ToString(lum));
+void write_record(double latitud, double longitud,uint16_t lum, float temp1, float hum1, float temp2, float hum2){
+  writeSD(doubleToString(latitud, 8) + "," + doubleToString(longitud, 8)+","+uint16ToString(lum)+","+ floatToString(temp1, 2)+","+ floatToString(hum1, 2)+","+ floatToString(temp2, 2)+","+ floatToString(hum2, 2));
 
 }
