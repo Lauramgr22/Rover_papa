@@ -19,16 +19,17 @@ void start_dht() {
 float * temp_hum() {
   delay(2000);
   // Reading temperature or humidity takes about 250 milliseconds!
+  Serial.println("==========");
   float h1 = dht1.readHumidity();
   float t1 = dht1.readTemperature();
-
+  Serial.println("==========.");
   float h2 = dht2.readHumidity();
   float t2 = dht2.readTemperature();
 
-  if (isnan(h1) || isnan(t1) || isnan(h2) || isnan(t2)) {
-    start_Display("Fallo para leer el sensor DHT");
-    return;
-  }
+  //if (isnan(h1) || isnan(t1) || isnan(h2) || isnan(t2)) {
+    //start_Display("Fallo para leer el sensor DHT");
+    //return;
+  //}
   static float My_arrayth[] = {t1,h1, t2, h2};
   return My_arrayth;
 }

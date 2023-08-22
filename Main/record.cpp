@@ -4,6 +4,7 @@
 #include <SPI.h>    // incluye libreria interfaz SPI
 #include <SD.h>     // incluye libreria para tarjetas SD
 #include "display.h"
+#include "clock.h"
 
 #define SSpin 10    // Slave Select en pin digital 10
 
@@ -53,7 +54,7 @@ String floatToString(float number, int decimalPlaces){
   return String(buffer); // Convierte el buffer en un objeto String
 }
 //--------------------------------------------------------------------------------
-void write_record(double latitud, double longitud,uint16_t lum, float temp1, float hum1, float temp2, float hum2){
-  writeSD(doubleToString(latitud, 8) + "," + doubleToString(longitud, 8)+","+uint16ToString(lum)+","+ floatToString(temp1, 2)+","+ floatToString(hum1, 2)+","+ floatToString(temp2, 2)+","+ floatToString(hum2, 2));
+void write_record(double latitud, double longitud,uint16_t lum, float temp1, float hum1, float temp2, float hum2, String fecha){
+  writeSD(doubleToString(latitud, 8) + "," + doubleToString(longitud, 8)+","+uint16ToString(lum)+","+ floatToString(temp1, 2)+","+ floatToString(hum1, 2)+","+ floatToString(temp2, 2)+","+ floatToString(hum2, 2)+","+fecha);
 
 }
